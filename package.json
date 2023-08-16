@@ -1,0 +1,19 @@
+{
+  "name": "API",
+  "version": "1.0.0",
+  "description": "API do projeto FoodExplorer, desenvolvida como requisito para a conclusão do programa Explorer",
+  "main": "index.js",
+  "scripts": {
+    "start": "node ./src/server.js",
+    "dev": "nodemon ./src/server.js"
+  },
+  "keywords": [],
+  "author": "Edna Maria Farias Moreira",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  }
+}
