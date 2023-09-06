@@ -2,8 +2,10 @@
 
 //imports
 const AppError = require("../utils/AppError");
+const {hash} = require("bcryptjs");
 //bd
 const sqliteConnection = require("../database/sqlite");
+
 
 class UserController {
 
@@ -11,7 +13,7 @@ class UserController {
   async create(req, res) {
     const { name, email, password } = req.body;
 
-    const database = sqliteConnection();
+    const database = await sqliteConnection();
 
     const checkUserExists = await database.get("SELECT * FROM USERS WHERE email = ?", [email]);
 
@@ -19,9 +21,12 @@ class UserController {
       throw new AppError("Este email já está em uso!");
     }
 
+    //criptografando senha antes de enviar para o db
+    const hashPassword = await hash(password, 8);
+
     await database.run(
       "INSERT INTO USERS (name, email, password) VALUES (?, ?, ?)",
-      [name, email, password]
+      [name, email, hashPassword]
     );
 
     await database.close();
