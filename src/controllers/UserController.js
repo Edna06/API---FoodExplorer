@@ -17,6 +17,10 @@ class UserController {
 
     const checkUserExists = await database.get("SELECT * FROM USERS WHERE email = ?", [email]);
 
+    if(!name){
+      throw new AppError("O campo 'Nome' é obrigatório! Preencha-o. ")
+    }
+
     if (checkUserExists) {
       throw new AppError("Este email já está em uso!");
     }

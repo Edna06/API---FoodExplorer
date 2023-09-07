@@ -4,8 +4,8 @@
   "description": "API do projeto FoodExplorer, desenvolvida como requisito para a conclusão do programa Explorer",
   "main": "index.js",
   "scripts": {
-    "start": "node ./src/server.js",
-    "dev": "nodemon ./src/server.js"
+    "dev": "nodemon ./src/server.js",
+    "migrate": "knex migrate:latest"
   },
   "keywords": [],
   "author": "Edna Maria Farias Moreira",
