@@ -2,9 +2,11 @@
 const knex = require("../database/knex");
 
 class DishesController{
+
   async create(req, res){
     const {title, description, category, image, price, ingredients} = req.body;
 
+    //me retornará o id do prato, além de inserir na tabela dishes essas informações
     const dish_id = (await knex("dishes").insert({
       title,
       description,
@@ -24,6 +26,22 @@ class DishesController{
 
     return res.status(201).json()
   }
+
+  async show(req, res){
+    const {id} = req.params;
+
+    const dish = await knex("dishes").where({id}).first();
+
+    const ingredients = await knex("ingredients").where({dish_id: id}).orderBy("title");
+
+    return res.status(200)
+    .json({
+      ...dish,
+      ingredients
+    })
+  };
+
+
 };
 
 module.exports = DishesController;
