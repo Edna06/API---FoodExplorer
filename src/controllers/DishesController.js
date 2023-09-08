@@ -14,7 +14,6 @@ class DishesController{
       price
     }))[0];
 
-
     const ingredientsInsert = ingredients.map(ingredient => {
       return {
         title: ingredient,
@@ -25,13 +24,12 @@ class DishesController{
     await knex("ingredients").insert(ingredientsInsert);
 
     return res.status(201).json()
-  }
+  };
 
   async show(req, res){
     const {id} = req.params;
 
     const dish = await knex("dishes").where({id}).first();
-
     const ingredients = await knex("ingredients").where({dish_id: id}).orderBy("title");
 
     return res.status(200)
@@ -39,6 +37,14 @@ class DishesController{
       ...dish,
       ingredients
     })
+  };
+
+  async delete (req, res){
+    const {id} = req.params;
+
+    await knex("dishes").where({id}).delete();
+
+    return res.status(200).json();
   };
 
 
