@@ -3,7 +3,7 @@ exports.up = knex => knex.schema.createTable("dishes", table => {
   table.text("name").notNullable();
   table.text("description").notNullable();
   table.text("category").notNullable();
-  table.text("image").notNullable();
+  table.text("image");
 
   table.decimal("price", 14,2).notNullable();
 
