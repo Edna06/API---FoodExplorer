@@ -1,5 +1,6 @@
 
 const knex = require("../database/knex");
+const AppError = require("../utils/AppError");
 
 class DishesController{
 
@@ -85,6 +86,24 @@ const dishesWithIngredients = dishes.map(dish => {
 
 return res.status(200).json(dishesWithIngredients);
   };
+
+  async update(req, res){
+    const {title, description, category, image, price, ingredients} = req.body;
+    const {id} = req.params;
+
+    const dish = await knex("dishes").where({id}).first();
+
+    dish.title= title ?? dish.title;
+    dish.description = description ?? dish.description;
+    dish.category = category ?? dish.category;
+    dish.image = image ?? dish.image;
+    dish.price = price ?? dish.price;
+
+    await knex("dishes").where({id}).update(dish);
+    await knex("dishes").where({id}).update("updated_at", knex.fn.now());
+
+    return res.json()
+  }
 };
 
 module.exports = DishesController;
