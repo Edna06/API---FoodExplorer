@@ -7,9 +7,9 @@ class DishesController{
   async create(req, res){
     const {title, description, category, image, price, ingredients} = req.body;
 
-
+    //verificação antes de cadastrar um novo prato
     const checkDishAlreadExistsInDatabase = await knex("dishes").where({title}).first();
-
+    //caso o prato já esteja cadastrado, irá me retornar a menssagem de erro
     if(checkDishAlreadExistsInDatabase){
       throw new AppError("O prato inserido já está cadastrado no nosso sistema!")
     }
@@ -109,7 +109,7 @@ return res.status(200).json(dishesWithIngredients);
     await knex("dishes").where({id}).update(dish);
     await knex("dishes").where({id}).update("updated_at", knex.fn.now());
 
-    return res.json()
+    return res.json("Prato atualizado!")
   }
 };
 
