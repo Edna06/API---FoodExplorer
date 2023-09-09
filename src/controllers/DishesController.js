@@ -7,6 +7,13 @@ class DishesController{
   async create(req, res){
     const {title, description, category, image, price, ingredients} = req.body;
 
+
+    const checkDishAlreadExistsInDatabase = await knex("dishes").where({title}).first();
+
+    if(checkDishAlreadExistsInDatabase){
+      throw new AppError("O prato inserido já está cadastrado no nosso sistema!")
+    }
+
     //me retornará o id do prato, além de inserir na tabela dishes essas informações
     const dish_id = (await knex("dishes").insert({
       title,
