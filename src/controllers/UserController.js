@@ -1,18 +1,14 @@
-//parte lógica para as requisições e respostas
-
 //imports
 const AppError = require("../utils/AppError");
 const {hash, compare} = require("bcryptjs");
 //bd
 const sqliteConnection = require("../database/sqlite");
-const { default: knex } = require("knex");
 
-
-class UserController {
+class UserController{
 
   //criando uma nova conta
   async create(req, res) {
-    const { name, email, password } = req.body;
+    const { name, email, password, is_admin=false } = req.body;
 
     const database = await sqliteConnection();
 
@@ -30,8 +26,8 @@ class UserController {
     const hashPassword = await hash(password, 8);
 
     await database.run(
-      "INSERT INTO USERS (name, email, password) VALUES (?, ?, ?)",
-      [name, email, hashPassword]
+      "INSERT INTO USERS (name, email, password, is_admin) VALUES (?, ?, ?)",
+      [name, email, hashPassword, is_admin]
     );
 
     await database.close();
