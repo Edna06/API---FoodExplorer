@@ -2,6 +2,9 @@
 require("express-async-errors")
 const AppError = require("./utils/AppError")
 
+//configuração das imagens enviadas
+const uploadConfig = require("./configs/upload");
+
 const migrationsRun = require("./database/sqlite/migrations");
 
 const express = require("express");
@@ -11,6 +14,7 @@ const routes = require("./routes")
 //initializing
 const app = express();
 app.use(express.json());
+app.use("/files", express.static(uploadConfig.UPLOADS_FOLDER));
 app.use(routes);
 
 migrationsRun(); //executando o banco de dados
