@@ -1,24 +1,31 @@
-
+//imports
 const knex = require("../database/knex");
 const AppError = require("../utils/AppError");
+
+const DiskStorage = require("../providers/DiskStorage.js");
 
 class DishesAdminController{
 
   async create(req, res){
     const {title, description, category, image, price, ingredients} = req.body;
 
+    // const diskStorage = new DiskStorage();
+
+    // const dishFilename = req.file.filename;
+
     //verificação antes de cadastrar um novo prato
-    const checkDishAlreadExistsInDatabase = await knex("dishes").where({title}).first();
+    const checkDishAlreadyExistInDatabase = await knex("dishes").where({title}).first();
     //caso o prato já esteja cadastrado, irá me retornar a menssagem de erro
-    if(checkDishAlreadExistsInDatabase){
+    if(checkDishAlreadyExistInDatabase){
       throw new AppError("O prato inserido já está cadastrado no nosso sistema!")
-    }
+    };
 
     //me retornará o id do prato, além de inserir na tabela dishes essas informações
     const dish_id = (await knex("dishes").insert({
       title,
       description,
       category,
+      image,
       price
     }))[0];
 

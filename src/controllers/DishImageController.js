@@ -7,11 +7,10 @@ class DishImageController {
   async update (req, res){
     const {id} = req.params;
 
-  const diskStorage = new DiskStorage();
-
-  const dishFilename = req.file.filename;
-
   const dish = await knex("dishes").where({id}).first();
+
+  const diskStorage = new DiskStorage();
+  const dishFilename = req.file.filename;
 
   if(dish.image){
     await diskStorage.deleteFile(dish.image);

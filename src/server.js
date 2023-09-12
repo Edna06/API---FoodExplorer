@@ -4,6 +4,7 @@ const AppError = require("./utils/AppError")
 
 //configuração das imagens enviadas
 const uploadConfig = require("./configs/upload");
+const uploadAvatarConfig = require("./configs/uploadAvatarUser");
 
 const migrationsRun = require("./database/sqlite/migrations");
 
@@ -14,7 +15,10 @@ const routes = require("./routes")
 //initializing
 const app = express();
 app.use(express.json());
-app.use("/files", express.static(uploadConfig.UPLOADS_FOLDER));
+
+app.use("/files/dishFiles", express.static(uploadConfig.UPLOADS_FOLDER));
+app.use("/files/avatarFiles", express.static(uploadAvatarConfig.UPLOADSAVATAR_FOLDER));
+
 app.use(routes);
 
 migrationsRun(); //executando o banco de dados

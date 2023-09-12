@@ -3,8 +3,6 @@ const knex = require("../database/knex");
 
 class DishesController{
 
-
-
   async show(req, res){
     const {id} = req.params;
 
