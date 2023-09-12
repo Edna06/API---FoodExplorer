@@ -6,11 +6,12 @@ const AppError = require("./utils/AppError")
 const uploadConfig = require("./configs/upload");
 const uploadAvatarConfig = require("./configs/uploadAvatarUser");
 
+const corsInit = require("cors");
+
 const migrationsRun = require("./database/sqlite/migrations");
 
 const express = require("express");
 const routes = require("./routes")
-
 
 //initializing
 const app = express();
@@ -20,6 +21,8 @@ app.use("/files/dishFiles", express.static(uploadConfig.UPLOADS_FOLDER));
 app.use("/files/avatarFiles", express.static(uploadAvatarConfig.UPLOADSAVATAR_FOLDER));
 
 app.use(routes);
+//inicialização do cors
+app.use(corsInit());
 
 migrationsRun(); //executando o banco de dados
 
