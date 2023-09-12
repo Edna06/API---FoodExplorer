@@ -9,10 +9,6 @@ class DishesAdminController{
   async create(req, res){
     const {title, description, category, image, price, ingredients} = req.body;
 
-    // const diskStorage = new DiskStorage();
-
-    // const dishFilename = req.file.filename;
-
     //verificação antes de cadastrar um novo prato
     const checkDishAlreadyExistInDatabase = await knex("dishes").where({title}).first();
     //caso o prato já esteja cadastrado, irá me retornar a menssagem de erro
@@ -63,6 +59,26 @@ class DishesAdminController{
 
     await knex("dishes").where({id}).update(dish);
     await knex("dishes").where({id}).update("updated_at", knex.fn.now());
+
+    const hasOnlyOneIngredient = typeof(ingredients) === "string";
+
+        let ingredientsInsert
+        if (hasOnlyOneIngredient) {
+          ingredientsInsert = {
+            dish_id: dish.id,
+            name: ingredients
+          }
+        } else if (ingredients.length > 1) {
+          ingredientsInsert = ingredients.map(ingredient => {
+            return {
+              dish_id: dish.id,
+              name : ingredient
+            }
+          })
+
+          await knex("ingredients").where({ dish_id: id}).delete()
+          await knex("ingredients").where({ dish_id: id}).insert(ingredientsInsert)
+        }
 
     return res.status(202).json("Prato atualizado!")
   }
