@@ -2,6 +2,7 @@
 require("express-async-errors")
 const AppError = require("./utils/AppError")
 
+require("dotenv/config")
 //configuração das imagens enviadas
 const uploadConfig = require("./configs/upload");
 const uploadAvatarConfig = require("./configs/uploadAvatarUser");
@@ -40,6 +41,6 @@ app.use((error,request,response, next) => {
     message: "internal server error"})
   })
 
-const PORT = 3333;
+const PORT = process.env.PORT || 3333;
 
 app.listen(PORT, () => {console.log(`Server is running on Port ${PORT}`)});

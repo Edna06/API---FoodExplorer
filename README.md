@@ -3,6 +3,7 @@
 Trata-se de uma API em Node.js da aplicação Food Explorer.
 
 ### Foram adicionados:
+
 - Criptografia de senhas
 - Validação de e-mail
 
@@ -20,8 +21,13 @@ npm run migrate
 npm run dev
 ```
 
+# Modifique as variáveis de ambiente em um arquivo .env
+
+AUTH_SECRET=
+PORT=
 
 ## Foi utilizado:
+
 - Node.js
 - Express
 - SQLite
@@ -34,6 +40,6 @@ npm run dev
 - Cors;
 - Deploy e utilização do render;
 
-
 ## Autor
+
 [@ednamaria](https://www.linkedin.com/in/edna-maria-farias-moreira-51b35176/)
