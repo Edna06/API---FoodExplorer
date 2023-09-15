@@ -16,12 +16,19 @@ class DishesAdminController{
       throw new AppError("O prato inserido já está cadastrado no nosso sistema!")
     };
 
+       // TESTE
+        const dishFilename = request.file.filename;
+
+        const diskStorage = new DiskStorage()
+
+        const filename = await diskStorage.saveFile(dishFilename);
+
     //me retornará o id do prato, além de inserir na tabela dishes essas informações
     const dish_id = (await knex("dishes").insert({
       title,
       description,
       category,
-      image,
+      image: filename,
       price
     }))[0];
 

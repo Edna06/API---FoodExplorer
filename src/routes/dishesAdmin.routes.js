@@ -14,7 +14,8 @@ const upload = multer(uploadConfig.MULTER);
 const dishesAdminController = new DishesAdminController();
 const dishImageController = new DishImageController();
 
-dishesAdminRoutes.post('/', dishesAdminController.create);
+
+dishesAdminRoutes.post('/', upload.single("image"), dishesAdminController.create);
 dishesAdminRoutes.delete('/:id', dishesAdminController.delete);
 dishesAdminRoutes.put('/:id', dishesAdminController.update);
 dishesAdminRoutes.patch('/dishImage/:id', upload.single("image"), dishImageController.update);
