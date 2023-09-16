@@ -2,6 +2,10 @@
 
 Trata-se de uma API em Node.js da aplicação Food Explorer.
 
+## Link da API online:
+
+https://foodexplorer-api-j6jw.onrender.com
+
 ### Foram adicionados:
 
 - Criptografia de senhas
