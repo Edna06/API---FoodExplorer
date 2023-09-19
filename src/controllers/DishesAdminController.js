@@ -17,7 +17,7 @@ class DishesAdminController{
     };
 
        // TESTE
-        const dishFilename = request.file.filename;
+        const dishFilename = req.file.filename;
 
         const diskStorage = new DiskStorage()
 
