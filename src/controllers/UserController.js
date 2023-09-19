@@ -8,7 +8,7 @@ class UserController{
 
   //criando uma nova conta
   async create(req, res) {
-    const { name, email, password, is_admin=false } = req.body;
+    const { name, email, password, isAdmin=false } = req.body;
 
     const database = await sqliteConnection();
 
@@ -26,8 +26,8 @@ class UserController{
     const hashPassword = await hash(password, 8);
 
     await database.run(
-      "INSERT INTO USERS (name, email, password, is_admin) VALUES (?, ?, ?, ?)",
-      [name, email, hashPassword, is_admin]
+      "INSERT INTO USERS (name, email, password, isAdmin) VALUES (?, ?, ?, ?)",
+      [name, email, hashPassword, isAdmin]
     );
 
     await database.close();
