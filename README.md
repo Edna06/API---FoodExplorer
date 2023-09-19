@@ -28,6 +28,7 @@ npm run dev
 # Modifique as variáveis de ambiente em um arquivo .env
 
 AUTH_SECRET=
+
 PORT=
 
 ## Foi utilizado:
