@@ -7,7 +7,7 @@ const DiskStorage = require("../providers/DiskStorage.js");
 class DishesAdminController{
 
   async create(req, res){
-    const {title, description, category, image, price, ingredients} = req.body;
+    const {title, description, category, price, ingredients} = req.body;
 
     //verificação antes de cadastrar um novo prato
     const checkDishAlreadyExistInDatabase = await knex("dishes").where({title}).first();
